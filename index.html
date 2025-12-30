@@ -3,48 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TaskWise v3.1 Ultimate</title>
-
-  <!-- Google Font -->
+  <title>TaskWise v2.14</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <style>
+    /* ================= THEME ================= */
     :root {
       --primary-grad: linear-gradient(135deg, #b1121f 0%, #ff4d5e 100%);
       --bg-color: #f0f2f5;
-      --glass: rgba(255, 255, 255, 0.65);
-      --glass-strong: rgba(255, 255, 255, 0.85);
-      --glass-border: rgba(255, 255, 255, 0.5);
+      --glass: rgba(255, 255, 255, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.4);
       --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
       --text: #1d1d1f;
       --text-secondary: #666;
-      --card-bg: rgba(255, 255, 255, 0.6);
-      --input-bg: rgba(255, 255, 255, 0.8);
+      --card-bg: rgba(255, 255, 255, 0.5);
+      --input-bg: rgba(255, 255, 255, 0.7);
       --success: #00a854;
       --warning: #faad14;
       --danger: #f5222d;
-      --ai-grad: linear-gradient(135deg, #8e44ad, #c39bd3);
     }
 
     body.dark-mode {
       --bg-color: #0f0f12;
       --glass: rgba(20, 20, 20, 0.7);
-      --glass-strong: rgba(30, 30, 30, 0.9);
       --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       --text: #e0e0e0;
       --text-secondary: #a0a0a0;
-      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-bg: rgba(255, 255, 255, 0.03);
       --input-bg: rgba(0, 0, 0, 0.3);
     }
 
     * {
       box-sizing: border-box;
       font-family: "Montserrat", sans-serif;
-      transition: 0.3s;
     }
 
     body {
@@ -52,18 +44,19 @@
       background: var(--bg-color);
       color: var(--text);
       min-height: 100vh;
-      overflow-x: hidden;
+      padding-top: 20px;
     }
 
-    /* NAVBAR */
+    /* ================= NAVBAR ================= */
     .topnav {
       position: sticky;
       top: 20px;
+      height: 72px;
       margin: 0 20px;
-      padding: 16px 24px;
+      padding: 0 24px;
+      background: var(--glass);
+      backdrop-filter: blur(24px);
       border-radius: 24px;
-      background: var(--glass-strong);
-      backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       display: flex;
@@ -73,16 +66,16 @@
     }
 
     .brand {
-      font-weight: 800;
       font-size: 1.4rem;
+      font-weight: 800;
     }
 
     .center button {
       background: none;
       border: none;
       padding: 10px 18px;
-      font-weight: 600;
       border-radius: 12px;
+      font-weight: 600;
       cursor: pointer;
       color: var(--text-secondary);
     }
@@ -105,7 +98,7 @@
 
     .logout-btn { color: var(--danger); }
 
-    /* LAYOUT */
+    /* ================= LAYOUT ================= */
     .wrapper {
       max-width: 1100px;
       margin: auto;
@@ -129,27 +122,27 @@
       padding: 32px;
     }
 
-    /* AUTH */
+    /* ================= AUTH ================= */
     .auth-screen {
       position: fixed;
       inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
       background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
     }
 
     .auth-card {
-      max-width: 420px;
       width: 100%;
+      max-width: 420px;
       padding: 40px;
+      background: var(--glass);
       border-radius: 24px;
-      background: var(--glass-strong);
       text-align: center;
     }
 
-    input, select, textarea {
+    input, select {
       width: 100%;
       padding: 14px;
       border-radius: 12px;
@@ -160,8 +153,8 @@
     }
 
     .primary-btn {
-      padding: 14px;
       width: 100%;
+      padding: 14px;
       border-radius: 12px;
       border: none;
       background: var(--primary-grad);
@@ -170,9 +163,7 @@
       cursor: pointer;
     }
 
-    .ai-btn { background: var(--ai-grad); }
-
-    /* KANBAN */
+    /* ================= KANBAN ================= */
     .kanban-board {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -182,10 +173,10 @@
 
     .kanban-column {
       background: var(--card-bg);
-      border-radius: 20px;
       padding: 16px;
+      border-radius: 20px;
       border: 1px solid var(--glass-border);
-      min-height: 380px;
+      min-height: 350px;
     }
 
     .kanban-header {
@@ -197,14 +188,13 @@
 
     .kanban-task {
       background: var(--glass);
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 14px;
+      padding: 14px;
       margin-bottom: 12px;
       border: 1px solid var(--glass-border);
-      cursor: pointer;
+      cursor: grab;
     }
 
-    /* RESPONSIVE */
     @media (max-width: 900px) {
       .kanban-board { grid-template-columns: 1fr; }
     }
@@ -216,7 +206,7 @@
 <!-- AUTH -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-card">
-    <h2>TaskWise v3.1</h2>
+    <h2>Welcome to TaskWise</h2>
     <input id="authName" placeholder="Your Name">
     <select id="authRole">
       <option>Admin</option>
@@ -232,9 +222,9 @@
 <div class="topnav">
   <div class="brand">TaskWise.</div>
   <div class="center">
-    <button class="active" onclick="showPage('home')">Dashboard</button>
+    <button class="active" onclick="showPage('home')">Home</button>
     <button onclick="showPage('tasks')">Tasks</button>
-    <button onclick="showPage('about')">Settings</button>
+    <button onclick="showPage('about')">About</button>
   </div>
   <div>
     <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
@@ -247,8 +237,8 @@
   <!-- HOME -->
   <section id="home" class="page active">
     <div class="glass">
-      <h1>Welcome to TaskWise Ultimate</h1>
-      <canvas id="taskChart" style="margin-top:30px;"></canvas>
+      <h1>Organize work beautifully</h1>
+      <p>Simple team task management with roles and drag-drop workflow.</p>
     </div>
   </section>
 
@@ -256,8 +246,8 @@
   <section id="tasks" class="page">
     <div class="glass">
       <h2>Task Board</h2>
-      <input id="taskInput" placeholder="Type a task">
-      <button class="primary-btn ai-btn" onclick="addTask()">✨ Add Task</button>
+      <input id="taskInput" placeholder="New Task">
+      <button class="primary-btn" onclick="addTask()">Add Task</button>
 
       <div class="kanban-board">
         <div class="kanban-column">
@@ -276,11 +266,12 @@
     </div>
   </section>
 
-  <!-- SETTINGS -->
+  <!-- ABOUT -->
   <section id="about" class="page">
     <div class="glass">
-      <h2>Settings</h2>
-      <button class="primary-btn" onclick="exportData()">Export Data</button>
+      <h2>About</h2>
+      <p>Frontend-only task manager built using HTML, CSS, and JavaScript.</p>
+      <button class="primary-btn" onclick="logout()">Logout</button>
       <button class="primary-btn" style="background:#333" onclick="factoryReset()">Factory Reset</button>
     </div>
   </section>
@@ -290,7 +281,6 @@
 <script>
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let user = JSON.parse(localStorage.getItem("user"));
-let chart;
 
 function login() {
   if (!authName.value || !authTeam.value) return alert("Fill all fields");
@@ -303,6 +293,13 @@ function login() {
 function logout() {
   localStorage.removeItem("user");
   location.reload();
+}
+
+function factoryReset() {
+  if (confirm("Delete all data?")) {
+    localStorage.clear();
+    location.reload();
+  }
 }
 
 function showPage(id) {
@@ -332,39 +329,6 @@ function render() {
     if (t.status === "progress") progress.appendChild(div);
     if (t.status === "done") done.appendChild(div);
   });
-  updateChart();
-}
-
-function updateChart() {
-  const data = [
-    tasks.filter(t => t.status === "todo").length,
-    tasks.filter(t => t.status === "progress").length,
-    tasks.filter(t => t.status === "done").length
-  ];
-  if (!chart) {
-    chart = new Chart(taskChart, {
-      type: "doughnut",
-      data: { labels: ["To Do","In Progress","Done"], datasets: [{ data }] }
-    });
-  } else {
-    chart.data.datasets[0].data = data;
-    chart.update();
-  }
-}
-
-function exportData() {
-  const blob = new Blob([JSON.stringify(tasks)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "taskwise_backup.json";
-  a.click();
-}
-
-function factoryReset() {
-  if (confirm("Delete everything?")) {
-    localStorage.clear();
-    location.reload();
-  }
 }
 
 function toggleTheme() {
