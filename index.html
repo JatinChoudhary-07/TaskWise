@@ -3,36 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TaskWise v2.14</title>
+  <title>TaskWise v3.1 Ultimate</title>
 
-  <!-- GOOGLE FONT -->
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
-    /* ===================== THEME VARIABLES ===================== */
     :root {
       --primary-grad: linear-gradient(135deg, #b1121f 0%, #ff4d5e 100%);
       --bg-color: #f0f2f5;
-      --glass: rgba(255, 255, 255, 0.6);
-      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass: rgba(255, 255, 255, 0.65);
+      --glass-strong: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.5);
       --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
       --text: #1d1d1f;
       --text-secondary: #666;
-      --card-bg: rgba(255, 255, 255, 0.5);
-      --input-bg: rgba(255, 255, 255, 0.7);
+      --card-bg: rgba(255, 255, 255, 0.6);
+      --input-bg: rgba(255, 255, 255, 0.8);
       --success: #00a854;
       --warning: #faad14;
       --danger: #f5222d;
+      --ai-grad: linear-gradient(135deg, #8e44ad, #c39bd3);
     }
 
     body.dark-mode {
       --bg-color: #0f0f12;
       --glass: rgba(20, 20, 20, 0.7);
+      --glass-strong: rgba(30, 30, 30, 0.9);
       --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       --text: #e0e0e0;
       --text-secondary: #a0a0a0;
-      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-bg: rgba(255, 255, 255, 0.04);
       --input-bg: rgba(0, 0, 0, 0.3);
     }
 
@@ -50,14 +55,14 @@
       overflow-x: hidden;
     }
 
-    /* ===================== NAVBAR ===================== */
+    /* NAVBAR */
     .topnav {
       position: sticky;
-      top: 15px;
-      margin: 0 15px;
+      top: 20px;
+      margin: 0 20px;
       padding: 16px 24px;
-      border-radius: 22px;
-      background: var(--glass);
+      border-radius: 24px;
+      background: var(--glass-strong);
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
@@ -68,17 +73,17 @@
     }
 
     .brand {
-      font-size: 1.4rem;
       font-weight: 800;
+      font-size: 1.4rem;
     }
 
     .center button {
       background: none;
       border: none;
+      padding: 10px 18px;
       font-weight: 600;
+      border-radius: 12px;
       cursor: pointer;
-      padding: 8px 16px;
-      border-radius: 10px;
       color: var(--text-secondary);
     }
 
@@ -93,33 +98,22 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 1px solid var(--glass-border);
       background: var(--input-bg);
+      border: 1px solid var(--glass-border);
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .logout-btn {
-      color: var(--danger);
-    }
+    .logout-btn { color: var(--danger); }
 
-    /* ===================== PAGES ===================== */
+    /* LAYOUT */
     .wrapper {
       max-width: 1100px;
       margin: auto;
-      padding: 30px;
+      padding: 32px;
     }
 
-    .page {
-      display: none;
-      animation: fade 0.3s ease;
-    }
-
-    .page.active {
-      display: block;
-    }
+    .page { display: none; }
+    .page.active { display: block; animation: fade 0.3s ease; }
 
     @keyframes fade {
       from { opacity: 0; transform: translateY(10px); }
@@ -128,80 +122,34 @@
 
     .glass {
       background: var(--glass);
+      border-radius: 24px;
       border: 1px solid var(--glass-border);
       backdrop-filter: blur(24px);
       box-shadow: var(--glass-shadow);
-      border-radius: 24px;
-      padding: 30px;
+      padding: 32px;
     }
 
-    /* ===================== HERO ===================== */
-    .hero h1 {
-      font-size: 2.8rem;
-      background: var(--primary-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* ===================== TASK BOARD ===================== */
-    .kanban-board {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .kanban-column {
-      background: var(--card-bg);
-      padding: 16px;
-      border-radius: 18px;
-      border: 1px solid var(--glass-border);
-      min-height: 350px;
-    }
-
-    .kanban-header {
-      font-weight: 700;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .kanban-task {
-      background: var(--glass);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 12px;
-      border: 1px solid var(--glass-border);
-      cursor: grab;
-    }
-
-    .priority-high { color: var(--danger); }
-    .priority-medium { color: var(--warning); }
-    .priority-low { color: var(--success); }
-
-    /* ===================== AUTH SCREEN ===================== */
+    /* AUTH */
     .auth-screen {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.6);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 2000;
+      background: rgba(0,0,0,0.5);
     }
 
     .auth-card {
-      width: 100%;
       max-width: 420px;
+      width: 100%;
       padding: 40px;
       border-radius: 24px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
+      background: var(--glass-strong);
       text-align: center;
     }
 
-    input, select {
+    input, select, textarea {
       width: 100%;
       padding: 14px;
       border-radius: 12px;
@@ -211,9 +159,9 @@
       color: var(--text);
     }
 
-    button.primary {
-      width: 100%;
+    .primary-btn {
       padding: 14px;
+      width: 100%;
       border-radius: 12px;
       border: none;
       background: var(--primary-grad);
@@ -222,20 +170,53 @@
       cursor: pointer;
     }
 
+    .ai-btn { background: var(--ai-grad); }
+
+    /* KANBAN */
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .kanban-column {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 16px;
+      border: 1px solid var(--glass-border);
+      min-height: 380px;
+    }
+
+    .kanban-header {
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .kanban-task {
+      background: var(--glass);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+    }
+
+    /* RESPONSIVE */
     @media (max-width: 900px) {
-      .kanban-board {
-        grid-template-columns: 1fr;
-      }
+      .kanban-board { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- ===================== AUTH ===================== -->
+<!-- AUTH -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-card">
-    <h2>Welcome to TaskWise</h2>
+    <h2>TaskWise v3.1</h2>
     <input id="authName" placeholder="Your Name">
     <select id="authRole">
       <option>Admin</option>
@@ -243,17 +224,17 @@
       <option>Viewer</option>
     </select>
     <input id="authTeam" placeholder="Team Name">
-    <button class="primary" onclick="login()">Get Started</button>
+    <button class="primary-btn" onclick="login()">Get Started</button>
   </div>
 </div>
 
-<!-- ===================== NAVBAR ===================== -->
+<!-- NAVBAR -->
 <div class="topnav">
   <div class="brand">TaskWise.</div>
   <div class="center">
-    <button class="active" onclick="showPage('home')">Home</button>
+    <button class="active" onclick="showPage('home')">Dashboard</button>
     <button onclick="showPage('tasks')">Tasks</button>
-    <button onclick="showPage('about')">About</button>
+    <button onclick="showPage('about')">Settings</button>
   </div>
   <div>
     <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
@@ -265,9 +246,9 @@
 
   <!-- HOME -->
   <section id="home" class="page active">
-    <div class="glass hero">
-      <h1>Organize work beautifully</h1>
-      <p>Simple team task management with roles, priorities and drag-drop workflow.</p>
+    <div class="glass">
+      <h1>Welcome to TaskWise Ultimate</h1>
+      <canvas id="taskChart" style="margin-top:30px;"></canvas>
     </div>
   </section>
 
@@ -275,8 +256,8 @@
   <section id="tasks" class="page">
     <div class="glass">
       <h2>Task Board</h2>
-      <input id="taskInput" placeholder="New Task">
-      <button class="primary" onclick="addTask()">Add Task</button>
+      <input id="taskInput" placeholder="Type a task">
+      <button class="primary-btn ai-btn" onclick="addTask()">✨ Add Task</button>
 
       <div class="kanban-board">
         <div class="kanban-column">
@@ -295,13 +276,12 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- SETTINGS -->
   <section id="about" class="page">
     <div class="glass">
-      <h2>About</h2>
-      <p>TaskWise is a frontend-only task manager built with HTML, CSS and JavaScript.</p>
-      <button class="primary" onclick="logout()">Logout</button>
-      <button class="primary" style="background:#333" onclick="factoryReset()">Factory Reset</button>
+      <h2>Settings</h2>
+      <button class="primary-btn" onclick="exportData()">Export Data</button>
+      <button class="primary-btn" style="background:#333" onclick="factoryReset()">Factory Reset</button>
     </div>
   </section>
 
@@ -310,14 +290,14 @@
 <script>
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let user = JSON.parse(localStorage.getItem("user"));
+let chart;
 
 function login() {
-  const name = authName.value.trim();
-  const team = authTeam.value.trim();
-  if (!name || !team) return alert("Fill all fields");
-  user = { name, role: authRole.value, team };
+  if (!authName.value || !authTeam.value) return alert("Fill all fields");
+  user = { name: authName.value, role: authRole.value, team: authTeam.value };
   localStorage.setItem("user", JSON.stringify(user));
   authScreen.style.display = "none";
+  render();
 }
 
 function logout() {
@@ -325,18 +305,9 @@ function logout() {
   location.reload();
 }
 
-function factoryReset() {
-  if (confirm("Delete all data?")) {
-    localStorage.clear();
-    location.reload();
-  }
-}
-
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-  document.querySelectorAll(".center button").forEach(b => b.classList.remove("active"));
-  event.target.classList.add("active");
 }
 
 function addTask() {
@@ -361,6 +332,39 @@ function render() {
     if (t.status === "progress") progress.appendChild(div);
     if (t.status === "done") done.appendChild(div);
   });
+  updateChart();
+}
+
+function updateChart() {
+  const data = [
+    tasks.filter(t => t.status === "todo").length,
+    tasks.filter(t => t.status === "progress").length,
+    tasks.filter(t => t.status === "done").length
+  ];
+  if (!chart) {
+    chart = new Chart(taskChart, {
+      type: "doughnut",
+      data: { labels: ["To Do","In Progress","Done"], datasets: [{ data }] }
+    });
+  } else {
+    chart.data.datasets[0].data = data;
+    chart.update();
+  }
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(tasks)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "taskwise_backup.json";
+  a.click();
+}
+
+function factoryReset() {
+  if (confirm("Delete everything?")) {
+    localStorage.clear();
+    location.reload();
+  }
 }
 
 function toggleTheme() {
